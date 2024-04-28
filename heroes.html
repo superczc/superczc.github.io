@@ -42,57 +42,7 @@
 
 	/* Defining each section background and styles
 	* --------------------------------------- */
-	#section0{
-		background-image: url(heroes/sequoia_okta.jpg);
-	}
-	#section1{
-		background-image: url(heroes/airbnb.png);
-	}
-	#section2{
-		background-image: url(heroes/alibaba.png);
-	}
-	#section3{
-		background-image: url(heroes/apple.png);
-	}
-	#section4{
-		background-image: url(heroes/bytedance.png);
-	}
-	#section5{
-		background-image: url(heroes/doordash.png);
-	}
-	#section6{
-		background-image: url(heroes/dropbox.png);
-	}
-	#section7{
-		background-image: url(heroes/google.png);
-	}
-	#section8{
-		background-image: url(heroes/jumei.png);
-	}
-	#section9{
-		background-image: url(heroes/linkedin.png);
-	}
-	#section10{
-		background-image: url(heroes/nvidia.png);
-	}
-	#section11{
-		background-image: url(heroes/oracle.png);
-	}
-	#section12{
-		background-image: url(heroes/paypal.png);
-	}
-	#section13{
-		background-image: url(heroes/square.png);
-	}
-	#section14{
-		background-image: url(heroes/stripe.png);
-	}
-	#section15{
-		background-image: url(heroes/whatsapp.png);
-	}
-	#section16{
-		background-image: url(heroes/youtube.png);
-	}
+	#section0{background-image: url(heroes/sequoia_okta.jpg);}#section1{background-image: url(heroes/sequoia_old_home.png);}#section2{background-image: url(heroes/airbnb.png);}#section3{background-image: url(heroes/alibaba.png);}#section4{background-image: url(heroes/apple.png);}#section5{background-image: url(heroes/bytedance.png);}#section6{background-image: url(heroes/cisco.png);}#section7{background-image: url(heroes/docker.png);}#section8{background-image: url(heroes/doordash.png);}#section9{background-image: url(heroes/dropbox.png);}#section10{background-image: url(heroes/electronicarts.png);}#section11{background-image: url(heroes/eventbrite.png);}#section12{background-image: url(heroes/google.png);}#section13{background-image: url(heroes/jumei.png);}#section14{background-image: url(heroes/linkedin.png);}#section15{background-image: url(heroes/nvidia.png);}#section16{background-image: url(heroes/oracle.png);}#section17{background-image: url(heroes/paypal.png);}#section18{background-image: url(heroes/square.png);}#section19{background-image: url(heroes/stripe.png);}#section20{background-image: url(heroes/whatsapp.png);}#section21{background-image: url(heroes/yahoo.png);}#section22{background-image: url(heroes/youtube.png);}
 
 	/* Bottom menu
 	* --------------------------------------- */
@@ -131,6 +81,12 @@
 	<div class="section" id="section14"></div>
 	<div class="section" id="section15"></div>
 	<div class="section" id="section16"></div>
+	<div class="section" id="section17"></div>
+	<div class="section" id="section18"></div>
+	<div class="section" id="section19"></div>
+	<div class="section" id="section20"></div>
+	<div class="section" id="section21"></div>
+	<div class="section" id="section22"></div>
 </div>
 
 
@@ -142,6 +98,17 @@
         verticalCentered: false
     });
 </script>
+
+<!--
+	$images = array("heroes/sequoia_okta.jpg","heroes/sequoia_old_home.png","heroes/airbnb.png","heroes/alibaba.png","heroes/apple.png","heroes/bytedance.png","heroes/cisco.png","heroes/docker.png","heroes/doordash.png","heroes/dropbox.png","heroes/electronicarts.png","heroes/eventbrite.png","heroes/google.png","heroes/jumei.png","heroes/linkedin.png","heroes/nvidia.png","heroes/oracle.png","heroes/paypal.png","heroes/square.png","heroes/stripe.png","heroes/whatsapp.png","heroes/yahoo.png","heroes/youtube.png");
+	
+	$index = 0;
+	foreach($images as $img)
+	{
+		print '#section'.$index.'{background-image: url('.$img.');}';
+		$index++;
+	}
+-->
 
 </body>
 </html>
