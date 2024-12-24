@@ -227,17 +227,29 @@
 <script type="text/javascript" src="fullpage.js"></script>
 <script type="text/javascript" src="examples.js"></script>
 <script type="text/javascript">
+	// Disable mouse and touch scroll
+	document.addEventListener('wheel', function(event) {
+		event.preventDefault();
+	}, { passive: false });
+
+	document.addEventListener('touchmove', function(event) {
+		event.preventDefault();
+	}, { passive: false });
+	
     var myFullpage = new fullpage('#fullpage', {
         anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage', '5thPage'],
         sectionsColor: ['#F5C400', '#F5C400', '#F5C400', '#F5C400', '#F5C400'],
-        navigation: true,
+        navigation: false,
         navigationPosition: 'right',
         navigationTooltips: ['First page', 'Second page', 'Third page', 'Fourth page'],
         responsiveWidth: 900,
-        afterResponsive: function(isResponsive){
-
-        }
-
+		scrollBar: false,
+		scrollHorizontally: false,
+		keyboardScrolling: false,
+		dragAndMove: false,
+		scrollOverflowMacStyle: false,
+		continuousHorizontal: false,
+		continuousVertical: false
     });
 </script>
 <script type="text/javascript" src="lightbox-plus-jquery.min.js"></script>
