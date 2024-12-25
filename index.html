@@ -232,10 +232,6 @@
 		event.preventDefault();
 	}, { passive: false });
 
-	document.addEventListener('touchmove', function(event) {
-		event.preventDefault();
-	}, { passive: false });
-	
     var myFullpage = new fullpage('#fullpage', {
         anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage', '5thPage'],
         sectionsColor: ['#F5C400', '#F5C400', '#F5C400', '#F5C400', '#F5C400'],
@@ -245,7 +241,7 @@
         responsiveWidth: 900,
 		scrollBar: false,
 		scrollHorizontally: false,
-		keyboardScrolling: false,
+		keyboardScrolling: false
     });
 </script>
 <script type="text/javascript" src="lightbox-plus-jquery.min.js"></script>
