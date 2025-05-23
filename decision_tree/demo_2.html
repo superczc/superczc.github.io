@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        background-color: #f7f7f7;
+        font-family: "Roboto";
+      }
+      .container {
+        margin: 50px auto;
+        max-width: 960px;
+      }
+      .window {
+        font-weight: bold;
+        cursor: pointer;
+        border: 1px solid #346789;
+        box-shadow: 2px 2px 10px #aaa;
+        border-radius: 0.5em;
+        padding: 0.5em;
+        text-align: center;
+        position: absolute;
+        background-color: #eeeeef;
+        color: black;
+        font-size: 0.9em;
+        word-wrap: break-word;
+        white-space: normal;
+        max-width: 200px;
+        min-width: 80px;
+      }
+      .collapser {
+        cursor: pointer;
+        border: 1px dotted gray;
+        z-index: 21;
+      }
+      #treemain {
+        height: 600px;
+        width: 100%;
+        position: relative;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="treemain"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/1.7.10/jsPlumb.min.js"></script>
+    <script src="jsplumb-tree.js"></script>
+    <!-- Ensure this path is correct -->
+
+    <script>
+      const treeData = [
+        { id: 0, label: "Root", parent: null },
+        {
+          id: 1,
+          label: "Node With A Really Long Label To Test Wrapping",
+          parent: 0,
+        },
+        { id: 2, label: "Node 2", parent: 0 },
+        { id: 3, label: "Third Root Child", parent: 0 },
+        { id: 4, label: "Node 1-1", parent: 1 },
+        { id: 5, label: "Node 1-2", parent: 1 },
+        { id: 6, label: "Node 2-1", parent: 2 },
+        { id: 7, label: "Node 2-2", parent: 2 },
+        { id: 8, label: "Node 2-3", parent: 2 },
+        { id: 9, label: "Node 2-4", parent: 2 },
+        { id: 10, label: "Node 1-1-1", parent: 4 },
+      ];
+
+      const childrenMap = {};
+      treeData.forEach((node) => {
+        if (node.parent !== null) {
+          if (!childrenMap[node.parent]) childrenMap[node.parent] = [];
+          childrenMap[node.parent].push(node.id);
+        }
+      });
+
+      treeData.forEach((node) => {
+        const siblings = node.parent !== null ? childrenMap[node.parent] : [];
+        const index = siblings.indexOf(node.id);
+        node.firstChild = childrenMap[node.id]?.[0] || "";
+        node.nextSibling =
+          index !== -1 && index < siblings.length - 1
+            ? siblings[index + 1]
+            : "";
+      });
+
+      treeData.forEach((node) => {
+        const el = document.createElement("div");
+        el.className = "window";
+        el.id = `node_${node.id}`;
+        el.dataset.id = node.id;
+        el.dataset.parent = node.parent ?? "";
+        el.dataset.firstChild = node.firstChild;
+        el.dataset.nextSibling = node.nextSibling;
+        el.textContent = node.label;
+        document.getElementById("treemain").appendChild(el);
+      });
+
+      jsPlumb.ready(function () {
+        const plumb = jsPlumb.getInstance({ Container: "treemain" });
+
+        const tree = jQuery.jsPlumbTree(plumb, {
+          prefix: "node_",
+          baseLeft: 24,
+          baseTop: 24,
+          nodeWidth: 0, // Let CSS handle width dynamically
+          hSpace: 36,
+          vSpace: 10,
+          imgPlus: "tree_expand.png",
+          imgMinus: "tree_collapse.png",
+          sourceAnchor: [1, 0.5, 1, 0, 10, 0],
+          targetAnchor: "LeftMiddle",
+          sourceEndpoint: {
+            endpoint: ["Image", { url: "tree_collapse.png" }],
+            cssClass: "collapser",
+            isSource: true,
+            connector: [
+              "Flowchart",
+              {
+                stub: [40, 60],
+                gap: [10, 0],
+                cornerRadius: 5,
+                alwaysRespectStubs: false,
+              },
+            ],
+            connectorStyle: {
+              lineWidth: 3,
+              strokeStyle: "#4F81BE",
+              joinstyle: "round",
+            },
+            enabled: false,
+            maxConnections: -1,
+          },
+          targetEndpoint: {
+            endpoint: "Blank",
+            isTarget: true,
+            enabled: false,
+            maxConnections: -1,
+          },
+          connectFunc: function (tree, node) {
+            console.log("Connected:", node.data("id"));
+          },
+        });
+
+        tree.init();
+        window.treemain = tree;
+      });
+    </script>
+  </body>
+</html>
